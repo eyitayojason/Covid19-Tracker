@@ -8,23 +8,26 @@ class DropDownContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      height: 60,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(
-          color: Color(0xFFE5e5E5),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        height: 60,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(
+            color: Color(0xFFE5e5E5),
+          ),
         ),
-      ),
-      child: Row(
-        children: <Widget>[
-          _MapImage(),
-          _DropDownWidget(),
-        ],
+        child: Row(
+          children: <Widget>[
+            _MapImage(),
+            SizedBox(width: 20),
+            _DropDownWidget(),
+          ],
+        ),
       ),
     );
   }

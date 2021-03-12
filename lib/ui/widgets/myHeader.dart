@@ -1,4 +1,4 @@
-import 'package:covid19/ui/pages/info_screen.dart';
+import 'package:covid19/ui/pages/info/info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -37,45 +37,78 @@ class Myheader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Align(
-              alignment: Alignment.topRight,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => InfoScreen(),
-                  ));
-                },
-                child: SvgPicture.asset(
-                  "assets/icons/menu.svg",
-                ),
-              ),
-            ),
+            _MenuIcon(),
             SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: Stack(
-                children: <Widget>[
-                  SvgPicture.asset(
-                    image,
-                    width: 230,
-                    fit: BoxFit.fitWidth,
-                    alignment: Alignment.topCenter,
-                  ),
-                  Positioned(
-                    top: 20,
-                    left: 150,
-                    child: Text(
-                      "$textTop\n$textBottom",
-                      //"Rester à la maison",
-                      style: kHeadingTextStyle.copyWith(color: Colors.white),
-                    ),
-                  ),
-                  Container(),
-                ],
-              ),
-            )
+            _HeaderText(
+              image: image,
+              textTop: textTop,
+              textBottom: textBottom,
+            ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _HeaderText extends StatelessWidget {
+  const _HeaderText({
+    Key key,
+    @required this.image,
+    @required this.textTop,
+    @required this.textBottom,
+  }) : super(key: key);
+
+  final String image;
+  final String textTop;
+  final String textBottom;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Stack(
+        children: <Widget>[
+          SvgPicture.asset(
+            image,
+            width: 230,
+            fit: BoxFit.fitWidth,
+            alignment: Alignment.topCenter,
+          ),
+          Positioned(
+            top: 20,
+            left: 150,
+            child: Text(
+              "$textTop\n$textBottom",
+              //"Rester à la maison",
+              style: kHeadingTextStyle.copyWith(color: Colors.white),
+            ),
+          ),
+          Container(),
+        ],
+      ),
+    );
+  }
+}
+
+class _MenuIcon extends StatelessWidget {
+  const _MenuIcon({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => InfoScreen(),
+          ));
+        },
+        child: SvgPicture.asset(
+          "assets/icons/menu.svg",
         ),
       ),
     );

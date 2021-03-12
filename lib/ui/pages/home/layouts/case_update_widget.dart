@@ -27,39 +27,41 @@ class _CounterContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 10),
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 30,
-            color: kShadowColor,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          _Counter(
-            color: Colors.orange,
-            number: 1021,
-            title: "Infected",
-          ),
-          _Counter(
-            color: kDeathColor,
-            number: 23,
-            title: "Deaths",
-          ),
-          _Counter(
-            color: Colors.green,
-            number: 103,
-            title: "Recovered",
-          )
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 4),
+              blurRadius: 30,
+              color: kShadowColor,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _Counter(
+              color: Colors.orange,
+              number: 1021,
+              title: "Infected",
+            ),
+            _Counter(
+              color: kDeathColor,
+              number: 23,
+              title: "Deaths",
+            ),
+            _Counter(
+              color: Colors.green,
+              number: 103,
+              title: "Recovered",
+            )
+          ],
+        ),
       ),
     );
   }
@@ -72,23 +74,26 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        RichText(
-          text: TextSpan(children: [
-            TextSpan(text: "Case Update\n", style: kTitleTextStyle),
-            TextSpan(
-              text: "Newest update March 28",
-              style: TextStyle(color: kTextLightColor),
-            ),
-          ]),
-        ),
-        Spacer(),
-        Text(
-          "See details",
-          style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w600),
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Row(
+        children: <Widget>[
+          RichText(
+            text: TextSpan(children: [
+              TextSpan(text: "Case Update\n", style: kTitleTextStyle),
+              TextSpan(
+                text: "Newest update March 28",
+                style: TextStyle(color: kTextLightColor),
+              ),
+            ]),
+          ),
+          Spacer(),
+          Text(
+            "See details",
+            style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w600),
+          )
+        ],
+      ),
     );
   }
 }
