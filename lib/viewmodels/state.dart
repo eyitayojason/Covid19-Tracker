@@ -7,7 +7,7 @@ class StateViewModel {
     this._state = state;
   }
 
-  String get state => _state.name;
+  String get name => _state.name;
   String get sId => _state.sId;
   int get confirmedCases => _state.confirmedCases;
   int get casesOnAdmission => _state.casesOnAdmission;

@@ -1,5 +1,7 @@
+import 'package:covid19/viewmodels/dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class DropDownContainer extends StatelessWidget {
   const DropDownContainer({
@@ -23,7 +25,7 @@ class DropDownContainer extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            _MapImage(),
+            _LocationIconImage(),
             SizedBox(width: 20),
             _DropDownWidget(),
           ],
@@ -33,8 +35,8 @@ class DropDownContainer extends StatelessWidget {
   }
 }
 
-class _MapImage extends StatelessWidget {
-  const _MapImage({
+class _LocationIconImage extends StatelessWidget {
+  const _LocationIconImage({
     Key key,
   }) : super(key: key);
 
@@ -44,34 +46,57 @@ class _MapImage extends StatelessWidget {
   }
 }
 
-class _DropDownWidget extends StatelessWidget {
+class _DropDownWidget extends StatefulWidget {
   const _DropDownWidget({
     Key key,
   }) : super(key: key);
 
   @override
+  __DropDownWidgetState createState() => __DropDownWidgetState();
+}
+
+class __DropDownWidgetState extends State<_DropDownWidget> {
+  var _stateNames;
+
+  @override
+  void initState() {
+    super.initState();
+    _stateNames = context.read<DropdownViewModel>().getStatesNames();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: DropdownButton(
-        value: "Nigeria",
-        isExpanded: true,
-        underline: SizedBox(),
-        icon: Icon(Icons.arrow_drop_down),
-        items: [
-          "Nigeria",
-          "United Kingdom",
-          "United States",
-          "China",
-        ].map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
+    return FutureBuilder(
+      future: _stateNames,
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        var dropDownViewModel = context.watch<DropdownViewModel>();
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Expanded(
+            child: DropdownButton(
+              value: dropDownViewModel.value,
+              isExpanded: true,
+              underline: SizedBox(),
+              icon: Icon(Icons.arrow_drop_down),
+              items: dropDownViewModel.names.map<DropdownMenuItem<String>>(
+                (String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                },
+              ).toList(),
+              onChanged: (value) {
+                setState(() {
+                  dropDownViewModel.onSelected(value);
+                });
+              },
+            ),
           );
-        }).toList(),
-        onChanged: (value) {
-          // select the value
-        },
-      ),
+        } else {
+          return new CircularProgressIndicator();
+        }
+      },
     );
   }
 }

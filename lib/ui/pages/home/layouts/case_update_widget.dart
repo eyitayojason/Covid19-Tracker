@@ -1,5 +1,7 @@
 import 'package:covid19/ui/constants.dart';
+import 'package:covid19/viewmodels/counter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CaseUpdateWidget extends StatelessWidget {
   const CaseUpdateWidget({
@@ -42,25 +44,30 @@ class _CounterContainer extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            _Counter(
-              color: Colors.orange,
-              number: 1021,
-              title: "Infected",
-            ),
-            _Counter(
-              color: kDeathColor,
-              number: 23,
-              title: "Deaths",
-            ),
-            _Counter(
-              color: Colors.green,
-              number: 103,
-              title: "Recovered",
-            )
-          ],
+        child: Consumer<CountViewModel>(
+          builder: (BuildContext context, count, Widget child) {
+            print('consumer number ===> ${count.death}');
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                _Counter(
+                  color: Colors.orange,
+                  number: count.totalActiveCases,
+                  title: "Infected",
+                ),
+                _Counter(
+                  color: kDeathColor,
+                  number: count.death,
+                  title: "Deaths",
+                ),
+                _Counter(
+                  color: Colors.green,
+                  number: count.discharged,
+                  title: "Recovered",
+                )
+              ],
+            );
+          },
         ),
       ),
     );

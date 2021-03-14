@@ -1,7 +1,6 @@
 import 'package:covid19/domain/state.dart';
 import 'package:covid19/services/exceptions/fetch.dart';
 import 'package:covid19/services/interfaces/Iapi.dart';
-import 'package:covid19/viewmodels/summary_data.dart';
 import 'package:dio/dio.dart';
 
 class Api extends IApi {
@@ -22,17 +21,5 @@ class Api extends IApi {
     }
   }
 
-  @override
-  void fetchSummaryData() async {
-    try {
-      final response = await dio.get(url);
-      totalSamplesTested = response.data['totalSamplesTested'];
-      totalConfirmedCases = response.data['totalConfirmedCases'];
-      totalActiveCases = response.data['totalActiveCases'];
-      discharged = response.data['discharged'];
-      death = response.data['death'];
-    } on DioError catch (dioError) {
-      throw FetchException.fromDioError(dioError);
-    }
-  }
+  
 }
