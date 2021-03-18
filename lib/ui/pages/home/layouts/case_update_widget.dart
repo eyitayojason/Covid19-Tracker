@@ -46,7 +46,6 @@ class _CounterContainer extends StatelessWidget {
         ),
         child: Consumer<CountViewModel>(
           builder: (BuildContext context, count, Widget child) {
-            print('consumer number ===> ${count.death}');
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[

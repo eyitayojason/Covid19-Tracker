@@ -1,8 +1,6 @@
 import 'package:covid19/viewmodels/state_listview.dart';
-import 'package:flutter/foundation.dart';
 
-class CountViewModel extends ChangeNotifier {
-  String _value = 'Lagos';
+class CountViewModel {
   int _totalActiveCases;
   int _discharged;
   int _death;
@@ -11,31 +9,29 @@ class CountViewModel extends ChangeNotifier {
   int get discharged => _discharged;
   int get death => _death;
 
-  void setTotalActiveCases(int value) {
+  set setTotalActiveCases(int value) {
     _totalActiveCases = value;
-    notifyListeners();
   }
 
-  void setDischarged(int value) {
+  set setDischarged(int value) {
     _discharged = value;
-    notifyListeners();
   }
 
-  void setDeath(int value) {
+  set setDeath(int value) {
     _death = value;
-    notifyListeners();
   }
 
-  void initialCount() {
+  CountViewModel updateCount(String value) {
+    CountViewModel count = CountViewModel();
     for (var state in states) {
-      if (_value == state.name) {
-        _totalActiveCases = state.casesOnAdmission;
-        _discharged = state.discharged;
-        _death = state.death;
+      if (value == state.name) {
+        count.setDeath = state.death;
+        count.setDischarged = state.discharged;
+        count.setTotalActiveCases = state.casesOnAdmission;
+
         break;
       }
     }
-
-    notifyListeners();
+    return count;
   }
 }

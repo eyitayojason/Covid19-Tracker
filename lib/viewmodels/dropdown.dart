@@ -15,9 +15,8 @@ class DropdownViewModel extends ChangeNotifier {
   List<String> get names => _names;
 
   Future<List<String>> getStatesNames() async {
-    Api api = Api();
-
     try {
+      Api api = Api();
       List<State> fetchedData = await api.fetchStatesData();
       states = fetchedData.map((state) => StateViewModel(state: state)).toList();
     } on DioError catch (dioError) {
@@ -34,18 +33,9 @@ class DropdownViewModel extends ChangeNotifier {
 
   void onSelected(String value) {
     _value = value;
-    CountViewModel counterViewModel = CountViewModel();
 
-    for (var state in states) {
-      if (value == state.name) {
-        counterViewModel.setDeath(state.death);
-        print(counterViewModel.totalActiveCases);
-        counterViewModel.setDischarged(state.discharged);
-        counterViewModel.setTotalActiveCases(state.casesOnAdmission);
-
-        break;
-      }
-    }
+    CountViewModel _countViewModel = CountViewModel();
+    _countViewModel.updateCount(value);
 
     notifyListeners();
   }
