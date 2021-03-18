@@ -56,47 +56,36 @@ class _DropDownWidget extends StatefulWidget {
 }
 
 class __DropDownWidgetState extends State<_DropDownWidget> {
-  var _stateNames;
-
   @override
   void initState() {
     super.initState();
-    _stateNames = context.read<DropdownViewModel>().getStatesNames();
+    context.read<DropdownViewModel>().getStatesNames();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _stateNames,
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        var dropDownViewModel = context.watch<DropdownViewModel>();
+    var dropDownViewModel = context.watch<DropdownViewModel>();
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Expanded(
-            child: DropdownButton(
-              value: dropDownViewModel.value,
-              isExpanded: true,
-              underline: SizedBox(),
-              icon: Icon(Icons.arrow_drop_down),
-              items: dropDownViewModel.names.map<DropdownMenuItem<String>>(
-                (String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                },
-              ).toList(),
-              onChanged: (value) {
-                setState(() {
-                  dropDownViewModel.onSelected(value);
-                });
-              },
-            ),
-          );
-        } else {
-          return new CircularProgressIndicator();
-        }
-      },
+    return Expanded(
+      child: DropdownButton(
+        value: dropDownViewModel.value,
+        isExpanded: true,
+        underline: SizedBox(),
+        icon: Icon(Icons.arrow_drop_down),
+        items: dropDownViewModel.names.map<DropdownMenuItem<String>>(
+          (String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          },
+        ).toList(),
+        onChanged: (value) {
+          setState(() {
+            dropDownViewModel.onSelected(value);
+          });
+        },
+      ),
     );
   }
 }

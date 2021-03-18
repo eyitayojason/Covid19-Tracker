@@ -5,12 +5,13 @@ import 'package:flutter/services.dart';
 
 void main() async {
   try {
+    // fetch covid info from api about all states in Nigeria
     StatesViewModel statesViewModel = StatesViewModel();
     await statesViewModel.getStatesData();
 
     runApp(MyApp());
-  } catch (dioError) {
-    runApp(_ErrorWidget(message: dioError));
+  } catch (error) {
+    runApp(_ErrorWidget(message: error));
   }
 }
 
